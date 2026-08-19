@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Majentro Technology Solutions — Inteligência Financeira para Negócios Modernos</title>
+<meta name="description" content="Contabilidade digital, automação e IA estratégica. Transforme sua empresa em uma máquina financeira inteligente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0E17;
+    --panel: #10151F;
+    --panel-2: #151B28;
+    --line: #212A3A;
+    --text: #E8ECF3;
+    --muted: #8B96AA;
+    --mint: #23D6A6;
+    --mint-dim: rgba(35,214,166,.14);
+    --indigo: #6E7BFF;
+    --indigo-dim: rgba(110,123,255,.14);
+    --danger: #FF6B6B;
+    --radius: 14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.font-display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{position:relative;}
+
+  /* Background ambient glow */
+  body::before{
+    content:'';
+    position:fixed;
+    top:-20%; left:50%;
+    transform:translateX(-50%);
+    width:900px; height:900px;
+    background:radial-gradient(circle, rgba(35,214,166,.10) 0%, rgba(110,123,255,.06) 40%, transparent 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,14,23,.75);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:19px;letter-spacing:-.02em;}
+  .logo-mark{
+    width:32px;height:32px;border-radius:9px;
+    background:linear-gradient(135deg, var(--mint), var(--indigo));
+    display:flex;align-items:center;justify-content:center;
+    color:#0A0E17;font-weight:700;font-size:16px;
+    flex-shrink:0;
+  }
+  .logo-text{display:flex; flex-direction:column; line-height:1.05;}
+  .logo-sub{
+    font-family:'Inter'; font-size:9.5px; font-weight:600; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); margin-top:2px;
+  }
+  .nav-links{display:flex;gap:32px;font-size:14.5px;color:var(--muted);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    display:flex; gap:10px; align-items:center;
+  }
+  .btn{
+    padding:10px 20px;border-radius:9px;font-size:14px;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;
+    cursor:pointer; transition:.2s;
+  }
+  .btn-primary{background:var(--mint);color:#08130F;}
+  .btn-primary:hover{background:#3fe6b8; transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--mint);}
+  @media(max-width:860px){.nav-links{display:none;}}
+
+  /* Hero */
+  .hero{padding:110px 24px 60px; text-align:center; position:relative; z-index:1;}
+  .badges{display:flex;gap:10px;justify-content:center;margin-bottom:26px;flex-wrap:wrap;}
+  .badge{
+    font-size:12.5px; padding:7px 14px; border-radius:100px;
+    border:1px solid var(--line); color:var(--muted);
+    display:flex; align-items:center; gap:6px;
+  }
+  .badge .dot{width:6px;height:6px;border-radius:50%;background:var(--mint);}
+  .hero h1{
+    font-size:clamp(34px, 5.4vw, 62px);
+    font-weight:700; letter-spacing:-.03em; line-height:1.08;
+    max-width:880px; margin:0 auto 22px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(90deg, var(--mint), var(--indigo));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p{
+    color:var(--muted); font-size:18px; max-width:560px; margin:0 auto 34px;
+  }
+  .hero-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:56px;}
+  .stats-row{display:flex; justify-content:center; gap:64px; flex-wrap:wrap;}
+  .stat{text-align:center;}
+  .stat .num{font-family:'Space Grotesk'; font-size:32px; font-weight:700; color:var(--text);}
+  .stat .label{font-size:13px; color:var(--muted); margin-top:2px;}
+
+  /* Dashboard mockup */
+  .dash-wrap{margin:64px auto 0; max-width:920px; position:relative; z-index:1; padding:0 24px;}
+  .dash{
+    background:var(--panel); border:1px solid var(--line); border-radius:20px;
+    padding:22px; box-shadow:0 40px 90px -30px rgba(0,0,0,.6);
+  }
+  .dash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+  .dash-title{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;}
+  .dash-dots{display:flex;gap:6px;}
+  .dash-dots span{width:9px;height:9px;border-radius:50%;background:var(--line);}
+  .dash-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px;}
+  .dash-card{background:var(--panel-2); border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .dash-card .k{font-size:12px; color:var(--muted); margin-bottom:8px;}
+  .dash-card .v{font-family:'Space Grotesk'; font-size:20px; font-weight:700;}
+  .dash-card .delta{font-size:12px; margin-top:6px; font-weight:600;}
+  .up{color:var(--mint);} .down{color:var(--danger);}
+  .chart-box{background:var(--panel-2); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:14px;}
+  .chart-box svg{width:100%; height:120px; display:block;}
+  .alerts{display:grid; gap:8px;}
+  .alert-item{
+    display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted);
+    background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:10px 14px;
+  }
+  .alert-item .ai-dot{width:7px;height:7px;border-radius:50%;background:var(--indigo); flex-shrink:0;}
+  @media(max-width:700px){.dash-grid{grid-template-columns:repeat(2,1fr);}}
+
+  /* Section headings */
+  .eyebrow{
+    font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.12em;
+    color:var(--mint); margin-bottom:14px;
+  }
+  .section-head{text-align:center; max-width:640px; margin:0 auto 56px;}
+  .section-head h2{font-size:clamp(28px,3.6vw,42px); font-weight:700; letter-spacing:-.02em; margin-bottom:14px;}
+  .section-head p{color:var(--muted); font-size:16.5px;}
+  .section-pad{padding:100px 24px;}
+
+  /* Feature grid */
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .feature-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; transition:.25s;
+  }
+  .feature-card:hover{border-color:var(--mint); transform:translateY(-3px);}
+  .feature-icon{
+    width:42px;height:42px;border-radius:10px; background:var(--mint-dim);
+    display:flex;align-items:center;justify-content:center; margin-bottom:18px; color:var(--mint);
+  }
+  .feature-card h3{font-size:17px; font-weight:600; margin-bottom:8px;}
+  .feature-card p{font-size:14.5px; color:var(--muted);}
+  @media(max-width:860px){.grid3{grid-template-columns:1fr;}}
+
+  /* Transformation */
+  .transform-wrap{display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:920px; margin:0 auto;}
+  .transform-col{border-radius:var(--radius); padding:30px; border:1px solid var(--line);}
+  .transform-col.before{background:var(--panel);}
+  .transform-col.after{background:linear-gradient(160deg, var(--mint-dim), transparent 60%), var(--panel); border-color:rgba(35,214,166,.4);}
+  .transform-col h4{font-family:'Space Grotesk'; font-size:14px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:20px; color:var(--muted);}
+  .transform-col.after h4{color:var(--mint);}
+  .transform-item{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); font-size:14.5px;}
+  .transform-item:last-child{border:none;}
+  .transform-item .ico{flex-shrink:0; width:18px;height:18px;}
+  @media(max-width:700px){.transform-wrap{grid-template-columns:1fr;}}
+
+  /* AI modules */
+  .grid6{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media(max-width:860px){.grid6{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.grid6{grid-template-columns:1fr;}}
+  .ai-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px;
+    position:relative; overflow:hidden;
+  }
+  .ai-card::after{
+    content:''; position:absolute; top:-40%; right:-40%; width:140px;height:140px;
+    background:radial-gradient(circle, var(--indigo-dim), transparent 70%);
+  }
+  .ai-tag{font-size:11px; font-family:'JetBrains Mono'; color:var(--indigo); margin-bottom:12px; display:block;}
+  .ai-card h3{font-size:16px; font-weight:600; margin-bottom:8px;}
+  .ai-card p{font-size:14px; color:var(--muted);}
+
+  /* Niches */
+  .niche-tabs{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:40px;}
+  .niche-tab{
+    padding:9px 18px; border-radius:100px; border:1px solid var(--line); font-size:13.5px;
+    color:var(--muted); cursor:pointer; transition:.2s;
+  }
+  .niche-tab.active{background:var(--mint); color:#08130F; border-color:var(--mint); font-weight:600;}
+  .niche-panel{
+    max-width:640px; margin:0 auto; text-align:center; background:var(--panel);
+    border:1px solid var(--line); border-radius:var(--radius); padding:40px;
+  }
+  .niche-panel h3{font-size:22px; margin-bottom:12px;}
+  .niche-panel p{color:var(--muted); margin-bottom:24px;}
+
+  /* Testimonials */
+  .grid3-test{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media(max-width:860px){.grid3-test{grid-template-columns:1fr;}}
+  .test-card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:28px;}
+  .test-card p{font-size:15px; color:var(--text); margin-bottom:20px; line-height:1.6;}
+  .test-person{display:flex; align-items:center; gap:12px;}
+  .avatar{width:38px;height:38px;border-radius:50%; background:linear-gradient(135deg,var(--mint),var(--indigo));}
+  .test-person .name{font-size:14px; font-weight:600;}
+  .test-person .role{font-size:12.5px; color:var(--muted);}
+
+  /* Comparison table */
+  table{width:100%; border-collapse:collapse; max-width:760px; margin:0 auto; background:var(--panel); border-radius:var(--radius); overflow:hidden; border:1px solid var(--line);}
+  th,td{padding:16px 20px; text-align:left; font-size:14.5px; border-bottom:1px solid var(--line);}
+  th{color:var(--muted); font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.05em;}
+  td:not(:first-child), th:not(:first-child){text-align:center;}
+  tr:last-child td{border-bottom:none;}
+  .yes{color:var(--mint); font-weight:700;}
+  .no{color:var(--muted);}
+
+  /* CTA */
+  .cta-box{
+    max-width:760px; margin:0 auto; text-align:center; padding:64px 40px; border-radius:24px;
+    background:linear-gradient(160deg, var(--mint-dim), var(--indigo-dim) 100%), var(--panel);
+    border:1px solid var(--line);
+  }
+  .cta-box h2{font-size:clamp(26px,3.4vw,38px); margin-bottom:16px;}
+  .cta-box p{color:var(--muted); margin-bottom:30px; font-size:16px;}
+  .cta-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line); padding:60px 24px 30px;}
+  .foot-grid{display:grid; grid-template-columns:2fr repeat(4,1fr); gap:32px; max-width:1180px; margin:0 auto 40px;}
+  .foot-grid h5{font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:16px;}
+  .foot-grid ul{list-style:none;}
+  .foot-grid li{margin-bottom:10px;}
+  .foot-grid a{font-size:14px; color:var(--muted);}
+  .foot-grid a:hover{color:var(--mint);}
+  .foot-bottom{
+    max-width:1180px; margin:0 auto; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-size:13px; color:var(--muted);
+  }
+  @media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr;}}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.show{opacity:1; transform:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="#"><span class="logo-mark">M</span><span class="logo-text">Majentro<span class="logo-sub">Technology Solutions</span></span></a>
+    <nav class="nav-links">
+      <a href="#system">O Sistema</a>
+      <a href="#ai">IA</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#niches">Nichos</a>
+      <a href="#proof">Resultados</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#cta" class="btn btn-ghost">Falar com Especialista</a>
+      <a href="#cta" class="btn btn-primary">Começar Agora</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="badges">
+    <span class="badge"><span class="dot"></span>IA Integrada</span>
+    <span class="badge"><span class="dot"></span>LGPD</span>
+    <span class="badge"><span class="dot"></span>Criptografia</span>
+  </div>
+  <h1>Transforme sua empresa em uma <span class="accent">máquina financeira inteligente.</span></h1>
+  <p>Contabilidade digital, automação e inteligência estratégica para negócios modernos.</p>
+  <div class="hero-actions">
+    <a href="#cta" class="btn btn-primary">Abrir Empresa</a>
+    <a href="#cta" class="btn btn-ghost">Migrar Contabilidade</a>
+    <a href="#cta" class="btn btn-ghost">WhatsApp</a>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="num" data-count="3000" data-suffix="+">0</div><div class="label">Empresas ativas</div></div>
+    <div class="stat"><div class="num" data-count="42" data-prefix="R$ " data-suffix="M">0</div><div class="label">Economia gerada</div></div>
+    <div class="stat"><div class="num" data-count="98" data-suffix="%">0</div><div class="label">Satisfação</div></div>
+  </div>
+
+  <div class="dash-wrap">
+    <div class="dash">
+      <div class="dash-top">
+        <div class="dash-title"><span class="logo-mark" style="width:26px;height:26px;font-size:13px;">M</span>Majentro Dashboard</div>
+        <div class="dash-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card"><div class="k">Receita Mensal</div><div class="v">R$ 284.500</div><div class="delta up">+12.5%</div></div>
+        <div class="dash-card"><div class="k">Impostos Otimizados</div><div class="v">R$ 18.200</div><div class="delta down">-23.1%</div></div>
+        <div class="dash-card"><div class="k">Notas Emitidas</div><div class="v">1.847</div><div class="delta up">+8.3%</div></div>
+        <div class="dash-card"><div class="k">Score Financeiro</div><div class="v">94/100</div><div class="delta up">+5pts</div></div>
+      </div>
+      <div class="chart-box">
+        <svg viewBox="0 0 600 120" preserveAspectRatio="none">
+          <polyline points="0,90 50,80 100,85 150,60 200,68 250,45 300,55 350,30 400,38 450,20 500,28 550,10 600,15"
+            fill="none" stroke="#23D6A6" stroke-width="2.5"/>
+          <polygon points="0,90 50,80 100,85 150,60 200,68 250,45 300,55 350,30 400,38 450,20 500,28 550,10 600,15 600,120 0,120"
+            fill="url(#g1)" opacity="0.25"/>
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#23D6A6"/>
+              <stop offset="100%" stop-color="#0A0E17" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="alerts">
+        <div class="alert-item"><span class="ai-dot"></span>Economia tributária de R$ 4.200 identificada</div>
+        <div class="alert-item"><span class="ai-dot"></span>DAS vence em 3 dias — pagamento agendado</div>
+        <div class="alert-item"><span class="ai-dot"></span>Receita 18% acima da meta mensal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="system" class="section-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">O Sistema</div>
+      <h2>A empresa funciona sozinha enquanto você cresce.</h2>
+      <p>Um ecossistema completo que automatiza toda a operação financeira da sua empresa.</p>
+    </div>
+    <div class="grid3">
+      <div class="feature-card reveal"><div class="feature-icon">⚡</div><h3>Automação Fiscal</h3><p>Notas fiscais, impostos e obrigações no piloto automático.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">📊</div><h3>Relatórios Inteligentes</h3><p>Visualize tudo em tempo real com dashboards interativos.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">🧠</div><h3>IA Tributária</h3><p>Reduza impostos com inteligência artificial avançada.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">🔔</div><h3>Alertas Financeiros</h3><p>Receba notificações antes de prazos e vencimentos.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">🖥️</div><h3>Dashboard Premium</h3><p>Controle total da sua empresa em uma única tela.</p></div>
+      <div class="feature-card reveal"><div class="feature-icon">🔁</div><h3>Fluxo Automatizado</h3><p>Processos integrados que funcionam 24 horas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" style="background:var(--panel);">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Transformação</div>
+      <h2>De caos financeiro para controle absoluto.</h2>
+    </div>
+    <div class="transform-wrap">
+      <div class="transform-col before reveal">
+        <h4>Antes</h4>
+        <div class="transform-item"><span class="ico">✕</span>Burocracia infinita</div>
+        <div class="transform-item"><span class="ico">✕</span>Impostos descontrolados</div>
+        <div class="transform-item"><span class="ico">✕</span>Contador lento e ausente</div>
+        <div class="transform-item"><span class="ico">✕</span>Medo financeiro constante</div>
+        <div class="transform-item"><span class="ico">✕</span>Dados espalhados</div>
+      </div>
+      <div class="transform-col after reveal">
+        <h4>Depois</h4>
+        <div class="transform-item"><span class="ico">✓</span>Clareza total em tempo real</div>
+        <div class="transform-item"><span class="ico">✓</span>Impostos otimizados com IA</div>
+        <div class="transform-item"><span class="ico">✓</span>Automação 24 horas</div>
+        <div class="transform-item"><span class="ico">✓</span>Previsibilidade financeira</div>
+        <div class="transform-item"><span class="ico">✓</span>Dashboard centralizado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ai" class="section-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Inteligência Artificial</div>
+      <h2>Uma inteligência financeira trabalhando 24h para você.</h2>
+      <p>6 módulos de IA que analisam, otimizam e projetam o futuro da sua empresa.</p>
+    </div>
+    <div class="grid6">
+      <div class="ai-card reveal"><span class="ai-tag">MÓDULO 01</span><h3>IA de Relatórios</h3><p>Gera análises financeiras automáticas em segundos.</p></div>
+      <div class="ai-card reveal"><span class="ai-tag">MÓDULO 02</span><h3>IA Tributária</h3><p>Encontra oportunidades de economia fiscal em tempo real.</p></div>
+      <div class="ai-card reveal"><span class="ai-tag">MÓDULO 03</span><h3>IA de Insights</h3><p>Descobre padrões ocultos nos dados da empresa.</p></div>
+      <div class="ai-card reveal"><span class="ai-tag">MÓDULO 04</span><h3>IA de Faturamento</h3><p>Projeta receitas e identifica tendências de crescimento.</p></div>
+      <div class="ai-card reveal"><span class="ai-tag">MÓDULO 05</span><h3>IA de Crescimento</h3><p>Sugere ações estratégicas baseadas em dados reais.</p></div>
+      <div class="ai-card reveal"><span class="ai-tag">MÓDULO 06</span><h3>IA Preditiva</h3><p>Antecipa cenários e riscos financeiros com precisão.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="niches" class="section-pad" style="background:var(--panel);">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Nichos</div>
+      <h2>Soluções sob medida para cada negócio.</h2>
+    </div>
+    <div class="niche-tabs" id="nicheTabs"></div>
+    <div class="niche-panel reveal" id="nichePanel">
+      <h3 id="nicheTitle">Infoprodutores</h3>
+      <p id="nicheDesc">Escale seus infoprodutos com controle total de receitas, plataformas e tributos.</p>
+      <a href="#cta" class="btn btn-primary">Falar com Especialista</a>
+    </div>
+  </div>
+</section>
+
+<section id="proof" class="section-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Resultados</div>
+      <h2>Números que falam por si.</h2>
+    </div>
+    <div class="stats-row" style="margin-bottom:70px;">
+      <div class="stat"><div class="num" data-count="3000" data-suffix="+">0</div><div class="label">Empresas ativas</div></div>
+      <div class="stat"><div class="num" data-count="42" data-prefix="R$ " data-suffix="M+">0</div><div class="label">Economia gerada</div></div>
+      <div class="stat"><div class="num" data-count="98" data-suffix="%">0</div><div class="label">Taxa de satisfação</div></div>
+      <div class="stat"><div class="num" data-count="120" data-suffix="K+">0</div><div class="label">Notas fiscais/mês</div></div>
+    </div>
+    <div class="grid3-test">
+      <div class="test-card reveal">
+        <p>"A Majentro transformou completamente nossa gestão financeira. Economizamos R$ 180 mil em impostos no primeiro ano."</p>
+        <div class="test-person"><div class="avatar"></div><div><div class="name">Lucas Mendes</div><div class="role">CEO, TechScale</div></div></div>
+      </div>
+      <div class="test-card reveal">
+        <p>"Nunca imaginei ter tanta clareza sobre minhas finanças. O dashboard é incrível e a IA realmente funciona."</p>
+        <div class="test-person"><div class="avatar"></div><div><div class="name">Camila Santos</div><div class="role">Infoprodutora</div></div></div>
+      </div>
+      <div class="test-card reveal">
+        <p>"Migrei de um contador tradicional e foi como sair da idade das trevas. Tudo automatizado e inteligente."</p>
+        <div class="test-person"><div class="avatar"></div><div><div class="name">Rafael Costa</div><div class="role">Founder, DropMax</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" style="background:var(--panel);">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Comparação</div>
+      <h2>Contabilidade antiga vs. Majentro</h2>
+    </div>
+    <table class="reveal">
+      <tr><th>Recurso</th><th>Tradicional</th><th>Majentro</th></tr>
+      <tr><td>Automação fiscal</td><td class="no">—</td><td class="yes">✓</td></tr>
+      <tr><td>IA tributária</td><td class="no">—</td><td class="yes">✓</td></tr>
+      <tr><td>Dashboard em tempo real</td><td class="no">—</td><td class="yes">✓</td></tr>
+      <tr><td>Suporte 24/7</td><td class="no">—</td><td class="yes">✓</td></tr>
+      <tr><td>Velocidade</td><td class="no">Dias</td><td class="yes">Segundos</td></tr>
+      <tr><td>Segurança</td><td class="no">Básica</td><td class="yes">Enterprise</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="cta" class="section-pad">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Seu negócio não precisa apenas de um contador. Precisa de uma inteligência financeira.</h2>
+      <p>Junte-se a mais de 3.000 empresas que já transformaram sua gestão financeira com a Majentro.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary">Começar Agora</a>
+        <a href="#" class="btn btn-ghost">Diagnóstico Gratuito</a>
+        <a href="#" class="btn btn-ghost">Falar com Especialista</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <a class="logo" href="#"><span class="logo-mark">M</span><span class="logo-text">Majentro<span class="logo-sub">Technology Solutions</span></span></a>
+      <p style="color:var(--muted); font-size:14px; margin-top:14px; max-width:220px;">Inteligência financeira para negócios modernos.</p>
+    </div>
+    <div><h5>Produto</h5><ul>
+      <li><a href="#">Dashboard</a></li><li><a href="#">IA Financeira</a></li><li><a href="#">Automação</a></li><li><a href="#">Integrações</a></li><li><a href="#">Preços</a></li>
+    </ul></div>
+    <div><h5>Empresa</h5><ul>
+      <li><a href="#">Sobre</a></li><li><a href="#">Blog</a></li><li><a href="#">Carreiras</a></li><li><a href="#">Contato</a></li><li><a href="#">Imprensa</a></li>
+    </ul></div>
+    <div><h5>Recursos</h5><ul>
+      <li><a href="#">Central de Ajuda</a></li><li><a href="#">Documentação</a></li><li><a href="#">API</a></li><li><a href="#">Status</a></li><li><a href="#">Comunidade</a></li>
+    </ul></div>
+    <div><h5>Legal</h5><ul>
+      <li><a href="#">Termos de Uso</a></li><li><a href="#">Privacidade</a></li><li><a href="#">LGPD</a></li><li><a href="#">Cookies</a></li><li><a href="#">Compliance</a></li>
+    </ul></div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Majentro Technology Solutions. Todos os direitos reservados.</span>
+    <span>LGPD Compliant • SOC 2 • ISO 27001</span>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
+  }, {threshold:.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Counter animation
+  function animateCount(el){
+    const target = parseFloat(el.dataset.count);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const dur = 1400;
+    const start = performance.now();
+    function step(now){
+      const p = Math.min((now-start)/dur, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      const val = Math.floor(eased*target);
+      el.textContent = prefix + val.toLocaleString('pt-BR') + suffix;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const counters = document.querySelectorAll('.num[data-count]');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); cio.unobserve(e.target);} });
+  }, {threshold:.5});
+  counters.forEach(c=>cio.observe(c));
+
+  // Niches tabs
+  const niches = [
+    {name:"Infoprodutores", desc:"Escale seus infoprodutos com controle total de receitas, plataformas e tributos."},
+    {name:"Creators", desc:"Organize patrocínios, plataformas e impostos sem perder tempo com planilhas."},
+    {name:"Dropshipping", desc:"Controle margens, fornecedores e fluxo de caixa em múltiplas moedas."},
+    {name:"Agências", desc:"Gerencie contratos recorrentes, comissões e repasses com clareza total."},
+    {name:"Clínicas", desc:"Automatize notas fiscais de serviço e obrigações da área da saúde."},
+    {name:"Advogados", desc:"Honorários, sociedade e tributação facilitados com IA especializada."},
+    {name:"Programadores", desc:"Exportação de serviços, MEI para LTDA e otimização tributária sob medida."},
+    {name:"E-commerce", desc:"Integração com marketplaces e emissão automática em alto volume."},
+    {name:"Freelancers", desc:"Simplicidade para quem fatura sozinho e quer previsibilidade financeira."},
+    {name:"Startups", desc:"Relatórios prontos para investidores e compliance desde o dia zero."},
+  ];
+  const tabsWrap = document.getElementById('nicheTabs');
+  const title = document.getElementById('nicheTitle');
+  const desc = document.getElementById('nicheDesc');
+  niches.forEach((n,i)=>{
+    const t = document.createElement('div');
+    t.className = 'niche-tab' + (i===0?' active':'');
+    t.textContent = n.name;
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.niche-tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      title.textContent = n.name;
+      desc.textContent = n.desc;
+    });
+    tabsWrap.appendChild(t);
+  });
+</script>
+
+</body>
+</html>
