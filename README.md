@@ -1,19 +1,20 @@
-# majentrotechnologysolutions
-Site institucional da Majentro Technology Solutions — landing page e área de clientes.
+# majentrotechnology.com
 
-## Publicacao
+Site institucional estatico da Majentro Technology Solutions. A aplicacao e HTML, CSS e JavaScript puro; nao possui backend, dependencias npm ou processo de build.
 
-O projeto e um site HTML estatico. O workflow em `.github/workflows/deploy.yml` publica automaticamente a raiz do repositorio no GitHub Pages a cada push na branch `main`. O dominio personalizado esta definido em `CNAME`.
+O GitHub armazena o codigo e executa o pipeline. O servidor de producao e uma VM Ubuntu na Oracle Cloud, com Nginx servindo diretamente `/var/www/majentrotechnology.com/`.
 
-### Checklist externo
+## Deploy automatico
 
-- [ ] No repositorio, acessar **Settings > Pages**.
-- [ ] Em **Build and deployment**, selecionar **GitHub Actions**.
-- [ ] No provedor de `majentrotechnology.com`, criar estes registros A no host `@`:
-	- `185.199.108.153`
-	- `185.199.109.153`
-	- `185.199.110.153`
-	- `185.199.111.153`
-- [ ] Aguardar a propagacao do DNS e verificar o dominio personalizado no GitHub Pages.
+O workflow `.github/workflows/deploy-oracle.yml` publica a raiz do projeto via SSH a cada push na branch `main`. Configure estes GitHub Secrets:
 
-Depois dessas configuracoes externas, cada push na `main` executara o deploy automaticamente.
+- `ORACLE_HOST`: IP publico ou hostname da VM Oracle.
+- `ORACLE_USER`: usuario SSH da VM, normalmente `ubuntu`.
+- `ORACLE_SSH_KEY`: chave privada SSH correspondente a uma chave autorizada na VM.
+- `ORACLE_KNOWN_HOSTS`: saida confiavel de `ssh-keyscan -H SEU_IP_ORACLE`.
+
+O workflow nao usa `CNAME` nem GitHub Pages.
+
+## Oracle Cloud
+
+Consulte [DEPLOY_ORACLE.md](DEPLOY_ORACLE.md) para criar a VM, configurar DNS, Nginx, HTTPS, firewall e o primeiro deploy.
